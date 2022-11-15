@@ -7,6 +7,7 @@ use App\Models\Lending;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LendingController extends Controller
 {
@@ -57,6 +58,24 @@ class LendingController extends Controller
         $lendings = Lending::with('user_c')->where('user_id','=', $user->id)->distinct('copy_id')->count();
         return $lendings;
     }
+
+    public function userLendingsCountWithoutDistinct()
+    {
+        $user = Auth::user();	//bejelentkezett felhasználó
+        $lendings = Lending::with('user_c')->where('user_id','=', $user->id)->count();
+        return $lendings;
+    }
+
+    public function inStorage()
+    {
+        $copies = DB::table('copies as c')
+        ->where('c.status','=', '0')
+        ->count();
+
+        return $copies;
+    }
+
+    
 
     //view-k:
     public function newView()

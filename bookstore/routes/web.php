@@ -49,9 +49,16 @@ Route::middleware(['auth.basic'])->group(function () {
     Route::apiResource('/api/users', UserController::class);
     Route::patch('/api/users/password/{id}', [UserController::class, 'updatePassword']);
     //queries
+    Route::get('/api/hardcovered', [CopyController::class, 'hardCopies']);
+    Route::get('/api/year_copies/{year}/{author}/{title}', [CopyController::class, 'yearCopies']);
+    Route::get('/api/year_copies_storage/{year}/{author}/{title}', [CopyController::class, 'yearCopiesStorage']);
+    Route::get('/api/in_storage', [LendingController::class, 'inStorage']);
+    Route::get('/api/lendingDataDB/{copy_id}', [CopyController::class, 'lendingDataDB']);
+    Route::get('/api/lendingDataWITH/{copy_id}', [CopyController::class, 'lendingDataWITH']);
     //user lendings
     Route::get('/api/user_lendings', [LendingController::class, 'userLendingsList']);
-    Route::get('/api/user_lendings_count', [LendingController::class, 'userLendingsCount']);
+    Route::get('/api/user_lendings_unique_count', [LendingController::class, 'userLendingsCount']);
+    Route::get('/api/user_lendings_count', [LendingController::class, 'userLendingsCountWithoutDistinct']);
 });
 //csak a tesztelés miatt van "kint"
 Route::patch('/api/users/password/{id}', [UserController::class, 'updatePassword']);

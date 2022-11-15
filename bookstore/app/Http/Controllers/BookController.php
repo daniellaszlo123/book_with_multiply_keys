@@ -41,4 +41,5 @@ class BookController extends Controller
         $copies = Book::with('copy_c')->where('title','=', $title)->get();
         return $copies;
     }
+    
 }

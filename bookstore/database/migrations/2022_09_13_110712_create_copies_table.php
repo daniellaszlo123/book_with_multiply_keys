@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('book_id')->references('book_id')->on('books');
             //kemény: 1 vagy puha kötésű: 0; tinyInteger ugyanaz
             $table->boolean('hardcovered')->default(0);
-            $table->year('publication')->default(2000);
+            $table->integer('publication')->length(4)->default(2000);
             //alapból a könyvtárban (0), ki van adva: 1, selejtre ítélve: 2
             $table->integer('status')->default(0);
             $table->timestamps();
